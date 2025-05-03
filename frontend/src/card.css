@@ -3,45 +3,50 @@
 #container-card {
     display: flex;
     gap: 15px;
+}
 
-    .card {
-        position: relative;
-        border: 7px solid rgb(255, 255, 255);
-        border-radius: 15px;
-        height: 150px;
-        width: 80px;
-        padding: 2em;
+#pile {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 100px;
+}
 
-        /* background-color: #FF0066; */
+.card {
+    position: relative;
+    border: 7px solid rgb(255, 255, 255);
+    border-radius: 15px;
+    height: 140px;
+    width: 80px;
+    padding: 2em;
 
-        svg {
-            position: absolute;
-            top: 15px;
-            left: -15px;
-            object-fit: center;
-            width: 180px;
-            z-index: 1;
-        }
+    /* background-color: #FF0066; */
 
-        p {
-            position: absolute;
-            top: -60px;
-            left: 0;
-            right: 0;
-            /* color: black; */
-            z-index: 2;
-            font-weight: 900;
-            font-size: 6rem;
-            font-family: "Londrina Shadow"
-            /* font-family: "Moo Lah Lah"; */
-            /* font-family: "Rubik Bubbles" */
-        }
+    svg {
+        position: absolute;
+        top: 15px;
+        left: -15px;
+        object-fit: center;
+        width: 180px;
+        z-index: 1;
     }
 
-    .card:hover {
-        position: relative;
-        top: -20px;
-        cursor: pointer;
+    p {
+        position: absolute;
+        top: -60px;
+        left: 0;
+        right: 0;
+        z-index: 2;
+        font-weight: 900;
+        font-size: 6rem;
+        font-family: "Londrina Shadow"
+        /* font-family: "Moo Lah Lah"; */
+        /* font-family: "Rubik Bubbles" */
     }
+}
 
+.card:hover {
+    position: relative;
+    top: -20px;
+    cursor: pointer;
 }
