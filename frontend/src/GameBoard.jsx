@@ -16,7 +16,7 @@ const GameBoard = ( {gameStarted, setGameStarted} ) => {
     <div>
         <button id='endgame' onClick={() => handleEndGame()}>Restart</button>
 
-        <PlayerDeck gameStarted={gameStarted} />
+        <PlayerDeck gameStarted={gameStarted} setGameStarted={setGameStarted} />
     </div>
 
   )

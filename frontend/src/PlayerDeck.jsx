@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./card.css"
 
-const PlayerDeck = ( {gameStarted} ) => {
+const PlayerDeck = ( {gameStarted, setGameStarted} ) => {
 
     // Les cartes & const
     const [cards, setCards] = useState([
@@ -137,8 +137,29 @@ const PlayerDeck = ( {gameStarted} ) => {
     const [ whichTurn, setWhichTurn ] = useState("human") // A qui est-ce ?
     const [ deck, setDeck ] = useState([]); // Mon deck
     const [ iaDeck, setIaDeck ] = useState([]); // Le deck de l'IA
+    const [hasPlayedOnce, setHasPlayedOnce] = useState(false);
 
 
+    // Opacité modifiée selon qui doit jouer
+    useEffect(() => {
+        if(whichTurn === "ia") { // Si c'est son tour
+            const otherP = document.getElementById("legend-your-turn");
+            otherP.classList.remove("opacity")
+
+            const p = document.getElementById("legend-their-turn");
+            p.classList.add("opacity")
+        }
+        else { // Si c'est mon tour
+            const otherP = document.getElementById("legend-their-turn");
+            otherP.classList.remove("opacity")
+
+            const p = document.getElementById("legend-your-turn");
+            p.classList.add("opacity");
+        }
+    }, [whichTurn])
+
+
+// ________________________________________________________________________
     // Mélange des cartes
     function shuffle(array) {
         for(let i = array.length - 1; i > 0; i--) {
@@ -174,7 +195,7 @@ const PlayerDeck = ( {gameStarted} ) => {
             setPile(remainingCards); // Je les mets dans la pile
         }
 
-    }, []);
+    }, [gameStarted]);
 
     // La pile
     useEffect(() => {
@@ -192,6 +213,10 @@ const PlayerDeck = ( {gameStarted} ) => {
             setCurrentCard(fetchCurrentCard);
         }
     }, []);
+
+
+// ________________________________________________________________________
+    // La pioche
     function fetchCard() {
         const remainingCards = JSON.parse(localStorage.getItem('remainingCards'))
         const cardFetched = remainingCards.pop();
@@ -222,6 +247,7 @@ const PlayerDeck = ( {gameStarted} ) => {
 
             const remainingCards = iaDeck.filter(c => c !== cardToPlay) // mise à jour du deck de l'iA
             setIaDeck(remainingCards);
+            localStorage.setItem("iasDeck", JSON.stringify(remainingCards));
 
             setWhichTurn("human"); // Au tour de l'humain
         }
@@ -230,12 +256,40 @@ const PlayerDeck = ( {gameStarted} ) => {
             const takeACard = fetchCard();
             const newIaDeck =  [...iaDeck, takeACard];
             setIaDeck(newIaDeck);
+            localStorage.setItem("iasDeck", JSON.stringify(newIaDeck));
+
 
             setWhichTurn("human"); // Au tour de l'humain
         }
     }
 
+    // Bonus +2
+    function handlePlusTwo(target) {
+        const remainingCards = JSON.parse(localStorage.getItem('remainingCards')); // Je récup le reste des cards
+        if (remainingCards.length < 2) {
+            console.warn("Pas assez de cartes dans la pioche !");
+            return;
+        }
+        const twoCards = remainingCards.slice(0,2);
 
+        // mettre à jour remaining cards
+        const updatedRemaining = remainingCards.slice(2);
+        localStorage.setItem('remainingCards', JSON.stringify(updatedRemaining));
+
+        if (target === "player") {
+            setDeck(prev => {
+                const updated = [...prev, ...twoCards];
+                localStorage.setItem("cardsDeck", JSON.stringify(updated));
+                return updated;
+            });
+        } else {
+            setIaDeck(prev => {
+                const updated = [...prev, ...twoCards];
+                localStorage.setItem("iasDeck", JSON.stringify(updated));
+                return updated;
+            });
+
+    }};
 
     // Je joue une carte
     const handleCardThrow = (card) => {
@@ -249,6 +303,11 @@ const PlayerDeck = ( {gameStarted} ) => {
             setDeck(remainingCards);
             localStorage.setItem("cardsDeck", JSON.stringify(remainingCards));
 
+            if(card.value === "drawTwo") {
+                handlePlusTwo("ia")
+            }
+
+            setHasPlayedOnce(true);
             setWhichTurn("ia");
 
         }
@@ -258,13 +317,33 @@ const PlayerDeck = ( {gameStarted} ) => {
     }
 
     // Je pioche
-
     const handlePioche = () => {
-        const newCard = fetchCard();
-        const newDeck = [...deck, newCard];
-        setDeck(newDeck);
-        setWhichTurn("ia")
+        if(whichTurn === "human") {
+            const newCard = fetchCard();
+            const newDeck = [...deck, newCard];
+            setDeck(newDeck);
+            setHasPlayedOnce(true);
+            setWhichTurn("ia");
+        }
+        else {
+            alert("Ce n'est pas votre tour !")
+        }
     }
+
+
+// ________________________________________________________________________
+    // Who fockin' won
+    useEffect(() => {
+        if (!hasPlayedOnce) return;
+
+        if (deck.length < 1) {
+            alert("Vous avez gagné !");
+            setGameStarted(false);
+        } else if (iaDeck.length < 1) {
+            alert("Vous avez perdu !");
+            setGameStarted(false);
+        }
+    }, [deck, iaDeck, hasPlayedOnce]);
 
 
     return (
@@ -272,7 +351,6 @@ const PlayerDeck = ( {gameStarted} ) => {
             <section id="iasDeck">
             {iaDeck.map(card => (
                 <div  className="card"
-                onClick={() => handleCardThrow(card)}
                 style={{
                     backgroundColor:
                         card.color === "rouge"
@@ -313,7 +391,11 @@ const PlayerDeck = ( {gameStarted} ) => {
             ))}
             </section>
 
+
             <section id='pile'>
+                <p id="legend-their-turn">Their turn 👆</p>
+
+
                 <div className='card' onClick={() => handlePioche()}>Pile</div>
                 {currentCard && (
                     <div className='card'
@@ -353,6 +435,9 @@ const PlayerDeck = ( {gameStarted} ) => {
                         }</p>
                     </div>
                 )}
+
+                <p id='legend-your-turn'>Your turn 🫵</p>
+
             </section>
 
             <section id="container-card">
