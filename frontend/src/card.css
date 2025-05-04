@@ -1,15 +1,16 @@
 
 
-#container-card {
+#container-card, #iasDeck {
     display: flex;
     gap: 15px;
+    transform: scale(0.8)
 }
 
 #pile {
     display: flex;
     justify-content: center;
     gap: 20px;
-    padding: 100px;
+    padding: 30px;
 }
 
 .card {

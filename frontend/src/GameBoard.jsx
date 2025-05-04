@@ -7,6 +7,7 @@ const GameBoard = ( {gameStarted, setGameStarted} ) => {
         setGameStarted(false);
         localStorage.setItem('gameIsOn', false);
         localStorage.removeItem("cardsDeck");
+        localStorage.removeItem("currentCard")
     }
 
 
