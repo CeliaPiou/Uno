@@ -1,143 +1,154 @@
 import React, { useEffect, useState } from 'react'
+import Historique from './Historique';
 import "./card.css"
 
-const PlayerDeck = ( {gameStarted, setGameStarted} ) => {
+const PlayerDeck = ( {gameStarted, setGameStarted } ) => {
 
     // Les cartes & const
     const [cards, setCards] = useState([
 
         // Rouge
 
-        { color: "rouge", type: "number", value: 0, img: ""},
+        { color: "rouge", type: "number", value: 0},
 
-        { color: "rouge", type: "number", value: 1, img: ""},
-        { color: "rouge", type: "number", value: 2, img: ""},
-        { color: "rouge", type: "number", value: 3, img: ""},
-        { color: "rouge", type: "number", value: 4, img: ""},
-        { color: "rouge", type: "number", value: 5, img: ""},
-        { color: "rouge", type: "number", value: 6, img: ""},
-        { color: "rouge", type: "number", value: 7, img: ""},
-        { color: "rouge", type: "number", value: 8, img: ""},
-        { color: "rouge", type: "number", value: 9, img: ""},
+        { color: "rouge", type: "number", value: 1},
+        { color: "rouge", type: "number", value: 2},
+        { color: "rouge", type: "number", value: 3},
+        { color: "rouge", type: "number", value: 4},
+        { color: "rouge", type: "number", value: 5},
+        { color: "rouge", type: "number", value: 6},
+        { color: "rouge", type: "number", value: 7},
+        { color: "rouge", type: "number", value: 8},
+        { color: "rouge", type: "number", value: 9},
 
-        { color: "rouge", type: "number", value: 1, img: ""},
-        { color: "rouge", type: "number", value: 2, img: ""},
-        { color: "rouge", type: "number", value: 3, img: ""},
-        { color: "rouge", type: "number", value: 4, img: ""},
-        { color: "rouge", type: "number", value: 5, img: ""},
-        { color: "rouge", type: "number", value: 6, img: ""},
-        { color: "rouge", type: "number", value: 7, img: ""},
-        { color: "rouge", type: "number", value: 8, img: ""},
-        { color: "rouge", type: "number", value: 9, img: ""},
+        { color: "rouge", type: "number", value: 1},
+        { color: "rouge", type: "number", value: 2},
+        { color: "rouge", type: "number", value: 3},
+        { color: "rouge", type: "number", value: 4},
+        { color: "rouge", type: "number", value: 5},
+        { color: "rouge", type: "number", value: 6},
+        { color: "rouge", type: "number", value: 7},
+        { color: "rouge", type: "number", value: 8},
+        { color: "rouge", type: "number", value: 9},
 
-        { color: "rouge", type: "actions", value: "skip", img: ""},
-        { color: "rouge", type: "actions", value: "skip", img: ""},
-        { color: "rouge", type: "actions", value: "reverse", img: ""},
-        { color: "rouge", type: "actions", value: "reverse", img: ""},
-        { color: "rouge", type: "actions", value: "drawTwo", img: ""},
-        { color: "rouge", type: "actions", value: "drawTwo", img: ""},
+        { color: "rouge", type: "actions", value: "skip"},
+        { color: "rouge", type: "actions", value: "skip"},
+        { color: "rouge", type: "actions", value: "reverse"},
+        { color: "rouge", type: "actions", value: "reverse"},
+        { color: "rouge", type: "actions", value: "drawTwo"},
+        { color: "rouge", type: "actions", value: "drawTwo"},
 
 
         // Jaune
 
-        { color: "jaune", type: "number", value: 0, img: ""},
+        { color: "jaune", type: "number", value: 0},
 
-        { color: "jaune", type: "number", value: 1, img: ""},
-        { color: "jaune", type: "number", value: 2, img: ""},
-        { color: "jaune", type: "number", value: 3, img: ""},
-        { color: "jaune", type: "number", value: 4, img: ""},
-        { color: "jaune", type: "number", value: 5, img: ""},
-        { color: "jaune", type: "number", value: 6, img: ""},
-        { color: "jaune", type: "number", value: 7, img: ""},
-        { color: "jaune", type: "number", value: 8, img: ""},
-        { color: "jaune", type: "number", value: 9, img: ""},
+        { color: "jaune", type: "number", value: 1},
+        { color: "jaune", type: "number", value: 2},
+        { color: "jaune", type: "number", value: 3},
+        { color: "jaune", type: "number", value: 4},
+        { color: "jaune", type: "number", value: 5},
+        { color: "jaune", type: "number", value: 6},
+        { color: "jaune", type: "number", value: 7},
+        { color: "jaune", type: "number", value: 8},
+        { color: "jaune", type: "number", value: 9},
 
-        { color: "jaune", type: "number", value: 1, img: ""},
-        { color: "jaune", type: "number", value: 2, img: ""},
-        { color: "jaune", type: "number", value: 3, img: ""},
-        { color: "jaune", type: "number", value: 4, img: ""},
-        { color: "jaune", type: "number", value: 5, img: ""},
-        { color: "jaune", type: "number", value: 6, img: ""},
-        { color: "jaune", type: "number", value: 7, img: ""},
-        { color: "jaune", type: "number", value: 8, img: ""},
-        { color: "jaune", type: "number", value: 9, img: ""},
+        { color: "jaune", type: "number", value: 1},
+        { color: "jaune", type: "number", value: 2},
+        { color: "jaune", type: "number", value: 3},
+        { color: "jaune", type: "number", value: 4},
+        { color: "jaune", type: "number", value: 5},
+        { color: "jaune", type: "number", value: 6},
+        { color: "jaune", type: "number", value: 7},
+        { color: "jaune", type: "number", value: 8},
+        { color: "jaune", type: "number", value: 9},
 
-        { color: "jaune", type: "actions", value: "skip", img: ""},
-        { color: "jaune", type: "actions", value: "skip", img: ""},
-        { color: "jaune", type: "actions", value: "reverse", img: ""},
-        { color: "jaune", type: "actions", value: "reverse", img: ""},
-        { color: "jaune", type: "actions", value: "drawTwo", img: ""},
-        { color: "jaune", type: "actions", value: "drawTwo", img: ""},
+        { color: "jaune", type: "actions", value: "skip"},
+        { color: "jaune", type: "actions", value: "skip"},
+        { color: "jaune", type: "actions", value: "reverse"},
+        { color: "jaune", type: "actions", value: "reverse"},
+        { color: "jaune", type: "actions", value: "drawTwo"},
+        { color: "jaune", type: "actions", value: "drawTwo"},
 
         // Bleu
 
-        { color: "bleu", type: "number", value: 0, img: ""},
+        { color: "bleu", type: "number", value: 0},
 
-        { color: "bleu", type: "number", value: 1, img: ""},
-        { color: "bleu", type: "number", value: 2, img: ""},
-        { color: "bleu", type: "number", value: 3, img: ""},
-        { color: "bleu", type: "number", value: 4, img: ""},
-        { color: "bleu", type: "number", value: 5, img: ""},
-        { color: "bleu", type: "number", value: 6, img: ""},
-        { color: "bleu", type: "number", value: 7, img: ""},
-        { color: "bleu", type: "number", value: 8, img: ""},
-        { color: "bleu", type: "number", value: 9, img: ""},
+        { color: "bleu", type: "number", value: 1},
+        { color: "bleu", type: "number", value: 2},
+        { color: "bleu", type: "number", value: 3},
+        { color: "bleu", type: "number", value: 4},
+        { color: "bleu", type: "number", value: 5},
+        { color: "bleu", type: "number", value: 6},
+        { color: "bleu", type: "number", value: 7},
+        { color: "bleu", type: "number", value: 8},
+        { color: "bleu", type: "number", value: 9},
 
-        { color: "bleu", type: "number", value: 1, img: ""},
-        { color: "bleu", type: "number", value: 2, img: ""},
-        { color: "bleu", type: "number", value: 3, img: ""},
-        { color: "bleu", type: "number", value: 4, img: ""},
-        { color: "bleu", type: "number", value: 5, img: ""},
-        { color: "bleu", type: "number", value: 6, img: ""},
-        { color: "bleu", type: "number", value: 7, img: ""},
-        { color: "bleu", type: "number", value: 8, img: ""},
-        { color: "bleu", type: "number", value: 9, img: ""},
+        { color: "bleu", type: "number", value: 1},
+        { color: "bleu", type: "number", value: 2},
+        { color: "bleu", type: "number", value: 3},
+        { color: "bleu", type: "number", value: 4},
+        { color: "bleu", type: "number", value: 5},
+        { color: "bleu", type: "number", value: 6},
+        { color: "bleu", type: "number", value: 7},
+        { color: "bleu", type: "number", value: 8},
+        { color: "bleu", type: "number", value: 9},
 
-        { color: "bleu", type: "actions", value: "skip", img: ""},
-        { color: "bleu", type: "actions", value: "skip", img: ""},
-        { color: "bleu", type: "actions", value: "reverse", img: ""},
-        { color: "bleu", type: "actions", value: "reverse", img: ""},
-        { color: "bleu", type: "actions", value: "drawTwo", img: ""},
-        { color: "bleu", type: "actions", value: "drawTwo", img: ""},
+        { color: "bleu", type: "actions", value: "skip"},
+        { color: "bleu", type: "actions", value: "skip"},
+        { color: "bleu", type: "actions", value: "reverse"},
+        { color: "bleu", type: "actions", value: "reverse"},
+        { color: "bleu", type: "actions", value: "drawTwo"},
+        { color: "bleu", type: "actions", value: "drawTwo"},
 
         // Vert
 
-        { color: "vert", type: "number", value: 0, img: ""},
+        { color: "vert", type: "number", value: 0},
 
-        { color: "vert", type: "number", value: 1, img: ""},
-        { color: "vert", type: "number", value: 2, img: ""},
-        { color: "vert", type: "number", value: 3, img: ""},
-        { color: "vert", type: "number", value: 4, img: ""},
-        { color: "vert", type: "number", value: 5, img: ""},
-        { color: "vert", type: "number", value: 6, img: ""},
-        { color: "vert", type: "number", value: 7, img: ""},
-        { color: "vert", type: "number", value: 8, img: ""},
-        { color: "vert", type: "number", value: 9, img: ""},
+        { color: "vert", type: "number", value: 1},
+        { color: "vert", type: "number", value: 2},
+        { color: "vert", type: "number", value: 3},
+        { color: "vert", type: "number", value: 4},
+        { color: "vert", type: "number", value: 5},
+        { color: "vert", type: "number", value: 6},
+        { color: "vert", type: "number", value: 7},
+        { color: "vert", type: "number", value: 8},
+        { color: "vert", type: "number", value: 9},
 
-        { color: "vert", type: "number", value: 1, img: ""},
-        { color: "vert", type: "number", value: 2, img: ""},
-        { color: "vert", type: "number", value: 3, img: ""},
-        { color: "vert", type: "number", value: 4, img: ""},
-        { color: "vert", type: "number", value: 5, img: ""},
-        { color: "vert", type: "number", value: 6, img: ""},
-        { color: "vert", type: "number", value: 7, img: ""},
-        { color: "vert", type: "number", value: 8, img: ""},
-        { color: "vert", type: "number", value: 9, img: ""},
+        { color: "vert", type: "number", value: 1},
+        { color: "vert", type: "number", value: 2},
+        { color: "vert", type: "number", value: 3},
+        { color: "vert", type: "number", value: 4},
+        { color: "vert", type: "number", value: 5},
+        { color: "vert", type: "number", value: 6},
+        { color: "vert", type: "number", value: 7},
+        { color: "vert", type: "number", value: 8},
+        { color: "vert", type: "number", value: 9},
 
-        { color: "vert", type: "actions", value: "skip", img: ""},
-        { color: "vert", type: "actions", value: "skip", img: ""},
-        { color: "vert", type: "actions", value: "reverse", img: ""},
-        { color: "vert", type: "actions", value: "reverse", img: ""},
-        { color: "vert", type: "actions", value: "drawTwo", img: ""},
-        { color: "vert", type: "actions", value: "drawTwo", img: ""},
+        { color: "vert", type: "actions", value: "skip"},
+        { color: "vert", type: "actions", value: "skip"},
+        { color: "vert", type: "actions", value: "reverse"},
+        { color: "vert", type: "actions", value: "reverse"},
+        { color: "vert", type: "actions", value: "drawTwo"},
+        { color: "vert", type: "actions", value: "drawTwo"},
+
+
+        // Black
+
+        { color: "black", type: "actions", value: "changeColor"},
+        { color: "black", type: "actions", value: "changeColor"},
+        { color: "black", type: "actions", value: "changeColor"},
+        { color: "black", type: "actions", value: "changeColor"},
+
 
     ]);
     const [ pile, setPile ] = useState([]);
     const [ currentCard, setCurrentCard ] = useState(null); // La carte qui vient d'être jouée
+    const [ previousCard, setPreviousCard ] = useState(null); // La carte précédente
     const [ whichTurn, setWhichTurn ] = useState("human") // A qui est-ce ?
     const [ deck, setDeck ] = useState([]); // Mon deck
     const [ iaDeck, setIaDeck ] = useState([]); // Le deck de l'IA
-    const [hasPlayedOnce, setHasPlayedOnce] = useState(false);
+    const [ hasPlayedOnce, setHasPlayedOnce ] = useState(false);
 
 
     // Opacité modifiée selon qui doit jouer
@@ -158,6 +169,10 @@ const PlayerDeck = ( {gameStarted, setGameStarted} ) => {
         }
     }, [whichTurn])
 
+    useEffect(() => {
+        // Si carte Noire, faire popper un sélecteur de couleur
+    }, [currentCard])
+
 
 // ________________________________________________________________________
     // Mélange des cartes
@@ -167,10 +182,11 @@ const PlayerDeck = ( {gameStarted, setGameStarted} ) => {
             [array[i], array[random]] = [array[random], array[i]]
         }
     }
-    shuffle(cards)
 
     // Distribution des cartes à moi et à l'IA
     useEffect(() => {
+
+        shuffle(cards);
 
         if(localStorage.getItem("cardsDeck") != null) { // Si le localSto est rempli
             const selectCards = JSON.parse(localStorage.getItem("cardsDeck")); // Je récupère les cartes du localSto
@@ -245,11 +261,43 @@ const PlayerDeck = ( {gameStarted, setGameStarted} ) => {
             const cardToPlay = playableCards[0]; // La première option sera jouée
             setCurrentCard(cardToPlay);
 
+            if (cardToPlay.value === "drawTwo"){
+                handlePlusTwo("player")
+            }
+
             const remainingCards = iaDeck.filter(c => c !== cardToPlay) // mise à jour du deck de l'iA
             setIaDeck(remainingCards);
             localStorage.setItem("iasDeck", JSON.stringify(remainingCards));
+            localStorage.setItem("currentCard", JSON.stringify(cardToPlay));
 
-            setWhichTurn("human"); // Au tour de l'humain
+            if(cardToPlay.value === "skip" || cardToPlay.value === "reverse") {
+                const playableCards = iaDeck.filter(card =>
+                    card.color === currentCard.color ||
+                    card.value === currentCard.value ||
+                    card.color === "noir"
+                );
+                const secondCard = playableCards[1];
+
+                if(!secondCard) { // Si pas d'autre carte jouable
+                    const takeACard = fetchCard(); // Pioche
+                    const newIaDeck =  [...iaDeck, takeACard]; // mise à jour du deck
+                    setIaDeck(newIaDeck);
+                    localStorage.setItem("iasDeck", JSON.stringify(newIaDeck));
+                    setWhichTurn("human"); // Au tour de l'humain
+                }
+                else{ // Si y'a une autre carte jouable
+                     // Petite pause avant de jouer la deuxième carte
+                    setTimeout(() => {
+                        setCurrentCard(secondCard);
+                        localStorage.setItem("currentCard", JSON.stringify(currentCard));
+                        setWhichTurn("human");
+                    }, 1000);
+                }
+
+            }
+            else {
+                setWhichTurn("human");
+            }
         }
 
         else { // Sinon, piocher une carte
@@ -291,9 +339,19 @@ const PlayerDeck = ( {gameStarted, setGameStarted} ) => {
 
     }};
 
+    // Bonus SkippidySKip
+    function handleSkip(target) {
+        if(target === "player") {
+            setWhichTurn("ia");
+        }
+        else {
+            setWhichTurn("human")
+        }
+    }
+
     // Je joue une carte
     const handleCardThrow = (card) => {
-        if (card.value === currentCard.value || card.color === currentCard.color) {
+        if (card.value === currentCard.value || card.color === currentCard.color || card.color === "noir") {
             // Je mets la carte sur la pile
             setCurrentCard(card);
             localStorage.setItem("currentCard", JSON.stringify(card));
@@ -307,9 +365,14 @@ const PlayerDeck = ( {gameStarted, setGameStarted} ) => {
                 handlePlusTwo("ia")
             }
 
-            setHasPlayedOnce(true);
-            setWhichTurn("ia");
+            if(card.value === "skip" || card.value === "reverse") {
+                handleSkip("ia")
+            }
+            else {
+                setWhichTurn("ia");
+            }
 
+            setHasPlayedOnce(true);
         }
         else {
             alert("Vous pouvez pas jouer cette carte")
@@ -339,54 +402,70 @@ const PlayerDeck = ( {gameStarted, setGameStarted} ) => {
         if (deck.length < 1) {
             alert("Vous avez gagné !");
             setGameStarted(false);
+            localStorage.setItem("gameIsOn", false);
+            localStorage.removeItem("cardsDeck");
+            localStorage.removeItem("currentCard");
+            localStorage.removeItem("iasDeck");
+            localStorage.removeItem("remainingCards");
+
         } else if (iaDeck.length < 1) {
             alert("Vous avez perdu !");
             setGameStarted(false);
+            localStorage.setItem("gameIsOn", false);
+            localStorage.removeItem("cardsDeck");
+            localStorage.removeItem("currentCard");
+            localStorage.removeItem("iasDeck");
+            localStorage.removeItem("remainingCards");
         }
+
     }, [deck, iaDeck, hasPlayedOnce]);
 
 
     return (
         <>
+
+            <Historique whichTurn={whichTurn} currentCard={currentCard} hasPlayedOnce={hasPlayedOnce} />
+
             <section id="iasDeck">
             {iaDeck.map(card => (
-                <div  className="card"
-                style={{
-                    backgroundColor:
-                        card.color === "rouge"
-                        ? "red"
-                        : card.color === "jaune"
-                        ? "yellow"
-                        : card.color === "bleu"
-                        ? "blue"
-                        : card.color === "vert"
-                        ? "green"
-                        : "noir",
+                <div  className="card card-reverse"
+                // style={{
+                //     backgroundColor:
+                //         card.color === "rouge"
+                //         ? "#FD1D1D"
+                //         : card.color === "jaune"
+                //         ? "#FCB045"
+                //         : card.color === "bleu"
+                //         ? "#833AB4"
+                //         : card.color === "vert"
+                //         ? "#76FC45"
+                //         : "noir",
 
-                    color:
-                        card.color === "rouge"
-                        ? "red"
-                        : card.color === "jaune"
-                        ? "yellow"
-                        : card.color === "bleu"
-                        ? "blue"
-                        : card.color === "vert"
-                        ? "green"
-                        : "noir",
-                    }}
+                //     color:
+                //         card.color === "rouge"
+                //         ? "#FD1D1D"
+                //         : card.color === "jaune"
+                //         ? "#FCB045"
+                //         : card.color === "bleu"
+                //         ? "#833AB4"
+                //         : card.color === "vert"
+                //         ? "#76FC45"
+                //         : "noir",
+                //     }}
                 >
 
-                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    {/* <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#F2F4F8" d="M51.3,-28.1C62.7,-9.9,65.5,14.8,55.5,30.4C45.5,46.1,22.8,52.8,-0.8,53.2C-24.4,53.7,-48.7,47.9,-58.6,32.3C-68.5,16.7,-63.9,-8.7,-51.7,-27.4C-39.5,-46.1,-19.7,-57.9,0.1,-58C20,-58.1,39.9,-46.3,51.3,-28.1Z" transform="translate(100 100)" />
-                    </svg>
+                    </svg> */}
 
-                    <p>{card.type == "number" ?         card.value
-                    : card.value == "reverse" ?          "🏓"
-                    : card.value == "skip" ?             "⛔"
+                    {/* <p>{card.type == "number" ?         card.value
+                    : card.value == "reverse" ?          "❤️‍🔥"
+                    : card.value == "skip" ?             "🚫"
                     : card.value == "drawTwo" ?          "+2"
                     :
                     "Erreur de carte"
-                    }</p>
+                    }</p> */}
+                    <p>UNO</p>
                 </div>
             ))}
             </section>
@@ -396,31 +475,37 @@ const PlayerDeck = ( {gameStarted, setGameStarted} ) => {
                 <p id="legend-their-turn">Their turn 👆</p>
 
 
-                <div className='card' onClick={() => handlePioche()}>Pile</div>
+                <div className='card card-reverse' onClick={() => handlePioche()}>
+                        {/* <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#F2F4F8" d="M51.3,-28.1C62.7,-9.9,65.5,14.8,55.5,30.4C45.5,46.1,22.8,52.8,-0.8,53.2C-24.4,53.7,-48.7,47.9,-58.6,32.3C-68.5,16.7,-63.9,-8.7,-51.7,-27.4C-39.5,-46.1,-19.7,-57.9,0.1,-58C20,-58.1,39.9,-46.3,51.3,-28.1Z" transform="translate(100 100)" />
+                        </svg> */}
+
+                        <p style={{color:"white"}}>UNO</p>
+                </div>
                 {currentCard && (
                     <div className='card'
                         style={{
                             backgroundColor:
                                 currentCard.color === "rouge"
-                                ? "red"
+                                ? "#ff595e"
                                 : currentCard.color === "jaune"
-                                ? "yellow"
+                                ? "#ffca3a"
                                 : currentCard.color === "bleu"
-                                ? "blue"
+                                ? "#1982c4"
                                 : currentCard.color === "vert"
-                                ? "green"
-                                : "noir",
+                                ? "#8ac926"
+                                : "black",
 
                             color:
                                 currentCard.color === "rouge"
-                                ? "red"
+                                ? "#ff595e"
                                 : currentCard.color === "jaune"
-                                ? "yellow"
+                                ? "#ffca3a"
                                 : currentCard.color === "bleu"
-                                ? "blue"
+                                ? "#1982c4"
                                 : currentCard.color === "vert"
-                                ? "green"
-                                : "noir",
+                                ? "#8ac926"
+                                : "black",
                         }}
                     >
                         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -428,9 +513,10 @@ const PlayerDeck = ( {gameStarted, setGameStarted} ) => {
                         </svg>
 
                         <p>{currentCard.type === "number" ?      currentCard.value
-                        : currentCard.value === "reverse" ?      "🏓"
-                        : currentCard.value === "skip" ?         "⛔"
-                        : currentCard.value === "drawTwo" ?      "+2"
+                        : currentCard.value == "reverse" ?          "❤️‍🔥"
+                        : currentCard.value == "skip" ?             "🚫"
+                        : currentCard.value === "drawTwo" ?         "+2"
+                        : currentCard.value === "changeColor" ?     "Col"
                         : "Erreur de carte"
                         }</p>
                     </div>
@@ -440,6 +526,7 @@ const PlayerDeck = ( {gameStarted, setGameStarted} ) => {
 
             </section>
 
+
             <section id="container-card">
             {deck.map(card => (
                 <div  className="card"
@@ -447,25 +534,25 @@ const PlayerDeck = ( {gameStarted, setGameStarted} ) => {
                 style={{
                     backgroundColor:
                         card.color === "rouge"
-                        ? "red"
+                        ? "#ff595e"
                         : card.color === "jaune"
-                        ? "yellow"
+                        ? "#ffca3a"
                         : card.color === "bleu"
-                        ? "blue"
+                        ? "#1982c4"
                         : card.color === "vert"
-                        ? "green"
-                        : "noir",
+                        ? "#8ac926"
+                        : "black",
 
                     color:
                         card.color === "rouge"
-                        ? "red"
+                        ? "#ff595e"
                         : card.color === "jaune"
-                        ? "yellow"
+                        ? "#ffca3a"
                         : card.color === "bleu"
-                        ? "blue"
+                        ? "#1982c4"
                         : card.color === "vert"
-                        ? "green"
-                        : "noir",
+                        ? "#8ac926"
+                        : "black",
                     }}
                 >
 
@@ -474,9 +561,10 @@ const PlayerDeck = ( {gameStarted, setGameStarted} ) => {
                     </svg>
 
                     <p>{card.type == "number" ?         card.value
-                    : card.value == "reverse" ?          "🏓"
-                    : card.value == "skip" ?             "⛔"
+                    : card.value == "reverse" ?          "❤️‍🔥"
+                    : card.value == "skip" ?             "🚫"
                     : card.value == "drawTwo" ?          "+2"
+                    : card.value === "changeColor" ?     "Col"
                     :
                     "Erreur de carte"
                     }</p>

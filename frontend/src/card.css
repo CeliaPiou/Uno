@@ -3,7 +3,8 @@
 #container-card, #iasDeck {
     display: flex;
     gap: 15px;
-    transform: scale(0.8)
+    transform: scale(0.8);
+    justify-content: center;
 }
 
 #pile {
@@ -55,6 +56,14 @@
     cursor: pointer;
     box-shadow: 5px 15px 10px rgba(0, 0, 0, 0.37);
 }
+.card-reverse {
+    background: #6A4C93;
+    background: linear-gradient(141deg, rgba(106, 76, 147, 1) 0%, rgba(27, 3, 71, 1) 81%);
+    p {
+        top: -20px;
+        font-size: 4.5rem;
+    }
+}
 
 #legend-their-turn, #legend-your-turn {
     font-weight: 800;
@@ -79,5 +88,4 @@
     to {
         transform: translateY(-10px);
     }
-
 }
