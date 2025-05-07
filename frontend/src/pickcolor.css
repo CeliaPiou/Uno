@@ -1,0 +1,49 @@
+#pop-up {
+    z-index: 100 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.512);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    #card {
+        background-color: rgb(0, 0, 0);
+        height: 300px;
+        width: 500px;
+        border-radius: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+
+        div {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+
+            #rouge {
+                background-color: #FF595E;
+            }
+            #jaune {
+                background-color: #FFCA3A;
+            }
+            #vert {
+                background-color:#76FC45
+            }
+            #bleu {
+                background-color:#1982C4;
+            }
+            button {
+                transition: all 0.3s ease-in;
+            }
+            button:hover {
+                background-color: rgb(21, 21, 21) !important;
+            }
+        }
+    }
+
+}

@@ -1,8 +1,46 @@
 #historique {
-    background-color: rgba(255, 255, 255, 0.654);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 240px;
+    background-color: rgba(0, 0, 0, 0.254);
+    /* position: fixed; */
+    /* top: 0;
+    left: 0; */
+    width: 260px;
     height: 100vh;
+    overflow: scroll;
+}
+
+#historique-container {
+    display: flex;
+    align-items:center;
+    position: fixed;
+    left: -240px;
+    top: 0;
+    bottom: 0;
+    width: 250px;
+    transition: all 0.5s ease-out;
+}
+
+#arrow-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+
+    width: 40px;
+    height: 80px;
+    top: 40vh;
+    right: -40px;
+
+    background-color: rgba(0, 0, 0, 0.254);
+}
+
+#arrow-container:hover {
+    cursor: pointer;
+}
+
+.visible {
+    position: fixed;
+    left: 0 !important;
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Historique from './Historique';
+import PickColor from './PickColor';
 import "./card.css"
 
 const PlayerDeck = ( {gameStarted, setGameStarted } ) => {
@@ -235,6 +236,11 @@ const PlayerDeck = ( {gameStarted, setGameStarted } ) => {
     // La pioche
     function fetchCard() {
         const remainingCards = JSON.parse(localStorage.getItem('remainingCards'))
+        if(remainingCards.length < 1) {
+            alert('Plus de carte disponible !')
+            return null
+        }
+
         const cardFetched = remainingCards.pop();
         localStorage.setItem("remainingCards", JSON.stringify(remainingCards));
         return cardFetched;
@@ -273,10 +279,9 @@ const PlayerDeck = ( {gameStarted, setGameStarted } ) => {
             if(cardToPlay.value === "skip" || cardToPlay.value === "reverse") {
                 const playableCards = iaDeck.filter(card =>
                     card.color === currentCard.color ||
-                    card.value === currentCard.value ||
-                    card.color === "noir"
-                );
-                const secondCard = playableCards[1];
+                    card.value === currentCard.value);
+                const secondCard = playableCards[0];
+                setCurrentCard(secondCard)
 
                 if(!secondCard) { // Si pas d'autre carte jouable
                     const takeACard = fetchCard(); // Pioche
@@ -426,45 +431,11 @@ const PlayerDeck = ( {gameStarted, setGameStarted } ) => {
 
             <Historique whichTurn={whichTurn} currentCard={currentCard} hasPlayedOnce={hasPlayedOnce} />
 
+            {/* <PickColor /> */}
+
             <section id="iasDeck">
             {iaDeck.map(card => (
-                <div  className="card card-reverse"
-                // style={{
-                //     backgroundColor:
-                //         card.color === "rouge"
-                //         ? "#FD1D1D"
-                //         : card.color === "jaune"
-                //         ? "#FCB045"
-                //         : card.color === "bleu"
-                //         ? "#833AB4"
-                //         : card.color === "vert"
-                //         ? "#76FC45"
-                //         : "noir",
-
-                //     color:
-                //         card.color === "rouge"
-                //         ? "#FD1D1D"
-                //         : card.color === "jaune"
-                //         ? "#FCB045"
-                //         : card.color === "bleu"
-                //         ? "#833AB4"
-                //         : card.color === "vert"
-                //         ? "#76FC45"
-                //         : "noir",
-                //     }}
-                >
-
-                    {/* <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#F2F4F8" d="M51.3,-28.1C62.7,-9.9,65.5,14.8,55.5,30.4C45.5,46.1,22.8,52.8,-0.8,53.2C-24.4,53.7,-48.7,47.9,-58.6,32.3C-68.5,16.7,-63.9,-8.7,-51.7,-27.4C-39.5,-46.1,-19.7,-57.9,0.1,-58C20,-58.1,39.9,-46.3,51.3,-28.1Z" transform="translate(100 100)" />
-                    </svg> */}
-
-                    {/* <p>{card.type == "number" ?         card.value
-                    : card.value == "reverse" ?          "❤️‍🔥"
-                    : card.value == "skip" ?             "🚫"
-                    : card.value == "drawTwo" ?          "+2"
-                    :
-                    "Erreur de carte"
-                    }</p> */}
+                <div  className="card card-reverse">
                     <p>UNO</p>
                 </div>
             ))}
@@ -476,11 +447,7 @@ const PlayerDeck = ( {gameStarted, setGameStarted } ) => {
 
 
                 <div className='card card-reverse' onClick={() => handlePioche()}>
-                        {/* <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                        <path fill="#F2F4F8" d="M51.3,-28.1C62.7,-9.9,65.5,14.8,55.5,30.4C45.5,46.1,22.8,52.8,-0.8,53.2C-24.4,53.7,-48.7,47.9,-58.6,32.3C-68.5,16.7,-63.9,-8.7,-51.7,-27.4C-39.5,-46.1,-19.7,-57.9,0.1,-58C20,-58.1,39.9,-46.3,51.3,-28.1Z" transform="translate(100 100)" />
-                        </svg> */}
-
-                        <p style={{color:"white"}}>UNO</p>
+                    <p style={{color:"white"}}>UNO</p>
                 </div>
                 {currentCard && (
                     <div className='card'
@@ -494,7 +461,7 @@ const PlayerDeck = ( {gameStarted, setGameStarted } ) => {
                                 ? "#1982c4"
                                 : currentCard.color === "vert"
                                 ? "#8ac926"
-                                : "black",
+                                : "#262626",
 
                             color:
                                 currentCard.color === "rouge"
@@ -505,7 +472,7 @@ const PlayerDeck = ( {gameStarted, setGameStarted } ) => {
                                 ? "#1982c4"
                                 : currentCard.color === "vert"
                                 ? "#8ac926"
-                                : "black",
+                                : "#262626",
                         }}
                     >
                         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -516,7 +483,7 @@ const PlayerDeck = ( {gameStarted, setGameStarted } ) => {
                         : currentCard.value == "reverse" ?          "❤️‍🔥"
                         : currentCard.value == "skip" ?             "🚫"
                         : currentCard.value === "drawTwo" ?         "+2"
-                        : currentCard.value === "changeColor" ?     "Col"
+                        : currentCard.value === "changeColor" ?     "🎨"
                         : "Erreur de carte"
                         }</p>
                     </div>
@@ -541,7 +508,7 @@ const PlayerDeck = ( {gameStarted, setGameStarted } ) => {
                         ? "#1982c4"
                         : card.color === "vert"
                         ? "#8ac926"
-                        : "black",
+                        : "#262626",
 
                     color:
                         card.color === "rouge"
@@ -552,7 +519,7 @@ const PlayerDeck = ( {gameStarted, setGameStarted } ) => {
                         ? "#1982c4"
                         : card.color === "vert"
                         ? "#8ac926"
-                        : "black",
+                        : "#262626",
                     }}
                 >
 
@@ -564,7 +531,7 @@ const PlayerDeck = ( {gameStarted, setGameStarted } ) => {
                     : card.value == "reverse" ?          "❤️‍🔥"
                     : card.value == "skip" ?             "🚫"
                     : card.value == "drawTwo" ?          "+2"
-                    : card.value === "changeColor" ?     "Col"
+                    : card.value === "changeColor" ?     "🎨"
                     :
                     "Erreur de carte"
                     }</p>
