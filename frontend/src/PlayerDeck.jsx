@@ -145,11 +145,12 @@ const PlayerDeck = ( {gameStarted, setGameStarted } ) => {
     ]);
     const [ pile, setPile ] = useState([]);
     const [ currentCard, setCurrentCard ] = useState(null); // La carte qui vient d'être jouée
-    const [ previousCard, setPreviousCard ] = useState(null); // La carte précédente
     const [ whichTurn, setWhichTurn ] = useState("human") // A qui est-ce ?
     const [ deck, setDeck ] = useState([]); // Mon deck
     const [ iaDeck, setIaDeck ] = useState([]); // Le deck de l'IA
     const [ hasPlayedOnce, setHasPlayedOnce ] = useState(false);
+    const [ haveToChoose, setHaveToChoose ] = useState(false);
+
 
 
     // Opacité modifiée selon qui doit jouer
@@ -170,8 +171,12 @@ const PlayerDeck = ( {gameStarted, setGameStarted } ) => {
         }
     }, [whichTurn])
 
+    // UseEffect pour gérer la carte Noire & le pop up
     useEffect(() => {
-        // Si carte Noire, faire popper un sélecteur de couleur
+        if(currentCard && currentCard.color === "black") {
+            setHaveToChoose(true);
+        }
+
     }, [currentCard])
 
 
@@ -260,7 +265,7 @@ const PlayerDeck = ( {gameStarted, setGameStarted } ) => {
         const playableCards = iaDeck.filter(card =>
             card.color === currentCard.color ||
             card.value === currentCard.value ||
-            card.color === "noir"
+            card.color === "black"
         );
 
         if (playableCards.length > 0) { // Si elle a des options
@@ -273,36 +278,44 @@ const PlayerDeck = ( {gameStarted, setGameStarted } ) => {
 
             const remainingCards = iaDeck.filter(c => c !== cardToPlay) // mise à jour du deck de l'iA
             setIaDeck(remainingCards);
-            localStorage.setItem("iasDeck", JSON.stringify(remainingCards));
-            localStorage.setItem("currentCard", JSON.stringify(cardToPlay));
+
 
             if(cardToPlay.value === "skip" || cardToPlay.value === "reverse") {
-                const playableCards = iaDeck.filter(card =>
-                    card.color === currentCard.color ||
-                    card.value === currentCard.value);
-                const secondCard = playableCards[0];
-                setCurrentCard(secondCard)
+                const otherplayableCards = remainingCards.filter(card =>
+                    card.color === cardToPlay.color || card.value === cardToPlay.value
+                );
+                const secondCard = otherplayableCards[0];
 
-                if(!secondCard) { // Si pas d'autre carte jouable
-                    const takeACard = fetchCard(); // Pioche
-                    const newIaDeck =  [...iaDeck, takeACard]; // mise à jour du deck
-                    setIaDeck(newIaDeck);
-                    localStorage.setItem("iasDeck", JSON.stringify(newIaDeck));
-                    setWhichTurn("human"); // Au tour de l'humain
-                }
-                else{ // Si y'a une autre carte jouable
-                     // Petite pause avant de jouer la deuxième carte
+                if(secondCard) {
                     setTimeout(() => {
                         setCurrentCard(secondCard);
-                        localStorage.setItem("currentCard", JSON.stringify(currentCard));
-                        setWhichTurn("human");
+                        localStorage.setItem("currentCard", JSON.stringify(secondCard));
+                        if (secondCard.value === "drawTwo") {
+                            handlePlusTwo('human');
+                        }
+                        const updatedDeck = remainingCards.filter(c => c !== secondCard);
+                        localStorage.setItem('iasDeck', updatedDeck);
+                        setWhichTurn('human');
                     }, 1000);
+                }
+
+                if(!secondCard){ // Si pas d'autre carte jouable
+                    alert('Je dois piocher')
+
+                    const takeACard = fetchCard(); // Pioche
+                    const newIaDeck =  [...remainingCards, takeACard]; // mise à jour du deck
+                    setIaDeck(newIaDeck);
+                    localStorage.setItem("iasDeck", JSON.stringify(newIaDeck));
+                    setWhichTurn('human');
                 }
 
             }
             else {
                 setWhichTurn("human");
             }
+
+            localStorage.setItem("iasDeck", JSON.stringify(remainingCards));
+            localStorage.setItem("currentCard", JSON.stringify(cardToPlay));
         }
 
         else { // Sinon, piocher une carte
@@ -356,7 +369,7 @@ const PlayerDeck = ( {gameStarted, setGameStarted } ) => {
 
     // Je joue une carte
     const handleCardThrow = (card) => {
-        if (card.value === currentCard.value || card.color === currentCard.color || card.color === "noir") {
+        if (card.value === currentCard.value || card.color === currentCard.color || card.color === "black") {
             // Je mets la carte sur la pile
             setCurrentCard(card);
             localStorage.setItem("currentCard", JSON.stringify(card));
@@ -431,7 +444,10 @@ const PlayerDeck = ( {gameStarted, setGameStarted } ) => {
 
             <Historique whichTurn={whichTurn} currentCard={currentCard} hasPlayedOnce={hasPlayedOnce} />
 
-            {/* <PickColor /> */}
+            {haveToChoose?
+            <PickColor setHaveToChoose={setHaveToChoose}
+            setCurrentCard={setCurrentCard}
+            setWhichTurn={setWhichTurn} /> : ""}
 
             <section id="iasDeck">
             {iaDeck.map(card => (

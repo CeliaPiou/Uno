@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import './pickcolor.css'
 
-const PickColor = () => {
+const PickColor = ({ setHaveToChoose, setCurrentCard, setWhichTurn }) => {
 
     const [ color, setColor ] = useState("");
     const [ buttons, setButtons ] = useState([
@@ -12,8 +12,12 @@ const PickColor = () => {
     ])
 
     const handleClick = (b) => {
-        setColor(prev => b.value);
-        console.log(color)
+        setColor(b.value);
+        const newCard = { color: b.id, type: "number", value: "🃏"};
+        localStorage.setItem('currentCard', JSON.stringify(newCard));
+        setCurrentCard(newCard);
+        setWhichTurn("ia");
+        setHaveToChoose(false);
     }
 
     return (
